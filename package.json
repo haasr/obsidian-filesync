@@ -1,0 +1,22 @@
+{
+  "name": "obsidian-filesync",
+  "version": "1.0.0",
+  "description": "Sync Obsidian files with Github",
+  "main": "launcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haasr/obsidian-filesync.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haasr/obsidian-filesync/issues"
+  },
+  "homepage": "https://github.com/haasr/obsidian-filesync#readme",
+  "dependencies": {
+    "cli-color": "^2.0.3"
+  }
+}
