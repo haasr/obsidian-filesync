@@ -1,6 +1,6 @@
 const child_process = require('child_process');
 const config = require('./config')
-const http2 = require('http2');
+const fetch = require("node-fetch");
 const logging = require('./logging');
 const sync = require('./sync');
 
