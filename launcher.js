@@ -19,7 +19,6 @@ function checkInetConnection() {
     });
 }
 
-
 function launchApp() {
     logging.app_info('Launching Obsidian');
 
@@ -29,7 +28,8 @@ function launchApp() {
     });
     
     windowProc.on('exit', () => { 
-        logging.app_log('Exiting...')
+        logging.app_log('Exiting...');
+        sync.unsetLock(config.VAULT_PATH);
         sync.pushUp(config.VAULT_PATH, config.DEVICE_ID);
     });
 }
@@ -37,8 +37,17 @@ function launchApp() {
 
 function main () {
     checkInetConnection();
-    sync.pullDown(config.VAULT_PATH);
-    launchApp();
+    let lock = sync.pullDown(config.VAULT_PATH);
+
+    if (lock == '') {
+        if (sync.setLock(config.VAULT_PATH, config.DEVICE_ID)) {
+            sync.pushUp(config.VAULT_PATH, config.DEVICE_ID, lockfile_only=true);
+            launchApp();
+        }
+    }
+    else {
+        logging.app_error(`Close Obsidian on ${lock} before launching again`);
+    }
 }
 
 main();
