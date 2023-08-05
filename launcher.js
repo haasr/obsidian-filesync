@@ -1,23 +1,20 @@
 const child_process = require('child_process');
 const config = require('./config')
-const dns = require('dns')
+const http2 = require('http2');
 const logging = require('./logging');
 const sync = require('./sync');
 
 
-function checkInetConnection() {
-    logging.app_info('Testing connection to github.com');
-    
-    dns.resolve('github.com', function(err) {
-        if (err) {
-            logging.app_error(err);
-            throw err;
-        }
-        else {
-            logging.app_log('Internet connection OK');
-        }
-    });
+function isConnected() {
+    const connected = fetch("https://github.com", {
+        method: "GET",
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json" },
+        referrerPolicy: "no-referrer",
+    }).then(() => true)
+    .catch(() => false);
 }
+
 
 function launchApp() {
     logging.app_info('Launching Obsidian');
@@ -36,17 +33,23 @@ function launchApp() {
 
 
 function main () {
-    checkInetConnection();
-    let lock = sync.pullDown(config.VAULT_PATH);
-
-    if (lock == '') {
-        if (sync.setLock(config.VAULT_PATH, config.DEVICE_ID)) {
-            sync.pushUp(config.VAULT_PATH, config.DEVICE_ID, lockfile_only=true);
-            launchApp();
-        }
+    if (! isConnected()) {
+        logging.app_error("Unable to reach github.com. Check your Internet connection.");
+        throw new Error("Unable to reach github.com. Check your Internet connection.");
     }
+
     else {
-        logging.app_error(`Close Obsidian on ${lock} before launching again`);
+        let lock = sync.pullDown(config.VAULT_PATH);
+
+        if (lock == '') {
+            if (sync.setLock(config.VAULT_PATH, config.DEVICE_ID)) {
+                sync.pushUp(config.VAULT_PATH, config.DEVICE_ID, lockfile_only=true);
+                launchApp();
+            }
+        }
+        else {
+            logging.app_error(`Close Obsidian on ${lock} before launching again`);
+        }
     }
 }
 
