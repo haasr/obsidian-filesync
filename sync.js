@@ -37,13 +37,12 @@ function pullDown(vaultPath) {
         }
     );
 
-    let lock = '';
-    fs.readFileSync(`${vaultPath}\\.obsidian-filesync-lock`, 'utf-8', (err, data) => {
+    let lock = fs.readFileSync(`${vaultPath}\\.obsidian-filesync-lock`, 'utf-8', (err, data) => {
         if (err) { logging.sync_warn(err); }
-        lock = String(data).trim();
+        logging.app_log(lock);
     });
 
-    return lock;
+    return String(lock).trim();
 }
 
 function pushUp(vaultPath, deviceID, lockfile_only=false) {

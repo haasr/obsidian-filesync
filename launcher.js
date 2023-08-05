@@ -38,6 +38,8 @@ function launchApp() {
 function main () {
     checkInetConnection();
     let lock = sync.pullDown(config.VAULT_PATH);
+    console.log("\n\n");
+    console.log(lock);
 
     if (lock == '') {
         if (sync.setLock(config.VAULT_PATH, config.DEVICE_ID)) {
