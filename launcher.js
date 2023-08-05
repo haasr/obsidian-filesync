@@ -1,18 +1,21 @@
 const child_process = require('child_process');
 const config = require('./config')
-const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
+const dns = require('dns');
 const logging = require('./logging');
 const sync = require('./sync');
 
 
 function isConnected() {
-    const connected = fetch("https://github.com", {
-        method: "GET",
-        cache: "no-cache",
-        headers: { "Content-Type": "application/json" },
-        referrerPolicy: "no-referrer",
-    }).then(() => true)
-    .catch(() => false);
+    return new Promise((resolve) => {
+        dns.resolve('github.com', (err) => {
+            if (err) {
+                resolve(false);
+            }
+            else {
+                resolve(true);
+            }
+        });
+    });
 }
 
 
@@ -28,17 +31,14 @@ function launchApp() {
         logging.app_log('Exiting...');
         sync.unsetLock(config.VAULT_PATH);
         sync.pushUp(config.VAULT_PATH, config.DEVICE_ID);
+        process.exit(0);
     });
 }
 
 
 function main () {
-    if (! isConnected()) {
-        logging.app_error("Unable to reach github.com. Check your Internet connection.");
-        throw new Error("Unable to reach github.com. Check your Internet connection.");
-    }
-
-    else {
+    isConnected()
+    .then(() => {
         let lock = sync.pullDown(config.VAULT_PATH);
 
         if (lock == '') {
@@ -50,7 +50,11 @@ function main () {
         else {
             logging.app_error(`Close Obsidian on ${lock} before launching again`);
         }
-    }
+    })
+    .catch(() => {
+        logging.app_error("Unable to reach github.com. Check your Internet connection.");
+        throw new Error("Unable to reach github.com. Check your Internet connection.");
+    });
 }
 
 main();
