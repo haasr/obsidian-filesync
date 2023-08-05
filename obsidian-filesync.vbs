@@ -1,1 +1,1 @@
-CreateObject("Wscript.Shell").Run "electron C:\obsidian-filesync\launcher.js", 1
+CreateObject("Wscript.Shell").Run "electron C:\obsidian-filesync\launcher.js", 0
