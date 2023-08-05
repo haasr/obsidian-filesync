@@ -25,25 +25,28 @@ function pushUp(vaultPath, deviceID) {
         }
     );
 
-    child_process.execSync(
-        `git commit -m "Sync changes from ${deviceID}"`, { cwd: vaultPath },
-        (err, stdout, stderr) => {
-            if (err) { logging.sync_warn(err); }
-
-            logging.sync_info("Commiting changes");
-            logging.sync_log(stdout);
-        }
-    );
-
-    child_process.execSync(
-        "git push", { cwd: vaultPath },
-        (err, stdout, stderr) => {
-            if (err) { logging.sync_warn(err); }
-
-            logging.sync_info("Pushing commit to upstream repository");
-            logging.sync_log(stdout);
-        }
-    );
+    try {
+        child_process.execSync(
+            `git commit -m "Sync changes from ${deviceID}"`, { cwd: vaultPath },
+            (err, stdout, stderr) => {
+                if (err) { logging.sync_warn(err); }
+    
+                logging.sync_info("Commiting changes");
+                logging.sync_log(stdout);
+            }
+        );
+    
+        child_process.execSync(
+            "git push", { cwd: vaultPath },
+            (err, stdout, stderr) => {
+                if (err) { logging.sync_warn(err); }
+    
+                logging.sync_info("Pushing commit to upstream repository");
+                logging.sync_log(stdout);
+            }
+        );
+    }
+    catch {  }
 }
 
 module.exports = {
