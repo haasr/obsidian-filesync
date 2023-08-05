@@ -1,6 +1,6 @@
 const child_process = require('child_process');
 const config = require('./config')
-const fetch = require("node-fetch");
+const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 const logging = require('./logging');
 const sync = require('./sync');
 
