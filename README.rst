@@ -123,7 +123,7 @@ file) and command line output will tell me I need to close Obsidian on ``Win10De
 5) Install the Node dependencies
 ----------------------------------------
 
-From the root directory of the ``obsidian-filesync`` repo, run ``npm install``.
+From the root directory of the ``obsidian-filesync`` repo, run ``npm install .``.
 You also need to install ``electron``: ``npm install electron``.
 
 
