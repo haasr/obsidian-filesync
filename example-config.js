@@ -1,6 +1,9 @@
 const DEVICE_ID = "Win11Desktop";
 const EXECUTABLE_PATH = `"C:\\Users\\User\\AppData\\Local\\Obsidian\\Obsidian.exe"`;
-const VAULT_PATH = `C:\\Users\\User\\Documents\\obsidian-vault`
+
+// This should be a GIT repository, NOT a regular folder!
+// That would defeat the point of this program!
+const VAULT_PATH = `C:\\Users\\User\\Documents\\obsidian-vault`;
 
 const LOG_DETAIL  = true;
 const LOG_INFO    = true;
