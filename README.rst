@@ -24,12 +24,13 @@ the window, a listener calls `git push` to push your changes.
 
 * NOTE: I only designed this to work with ONE Obsidian file vault.
 
-Disclaimer
-----------
 
-This is not enterprise-grade software! There is a listener waiting to until you
+Disclaimer
+############
+
+This is not enterprise-grade software! There is a listener waiting until you
 close Obsidian to push the files. If you close Obsidian and immediately shut the
-lid of your laptop (or disconnect from the Internet somehow), you could disturb
+lid of your laptop (or disconnect from the Internet somehow), you might disturb
 that process.
 
 It is possible that a `git pull` will fail, if for instance, Obsidian crashed
