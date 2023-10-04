@@ -99,7 +99,7 @@ the repository. Here are the contents of mine:
 3) Add a lock file and push your vault
 ----------------------------------------
 
-Add an empty file named ``.obsidian-filesync.lock``. Just like the gitignore file,
+Add an empty file named ``.obsidian-filesync-lock``. Just like the gitignore file,
 this file will reside in the root of your repository, not in a subfolder.
 
 Now you are ready to push your vault up to your origin. After you push it, you
