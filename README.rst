@@ -109,7 +109,7 @@ this tutorial (https://blog.corsego.com/aws-cloud9-github-ssh).
 
 
 4) Setup this project
-----------------------------------------``
+----------------------------------------
 
 First, clone this repository. Next, rename ``example-config.js`` to ``config.js``.
 Edit the ``DEVICE_ID``, ``EXECUTABLE_PATH``, and ``VAULT_PATH`` strings according to
