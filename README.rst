@@ -84,7 +84,7 @@ Consider the repository folder to be your vault's root folder, for example:
 2) Add a .gitignore file
 ----------------------------------------
 
- to your new Obsidian vault repository to ignore
+Add a .gitignore file to your new Obsidian vault repository to ignore
 files you may not wish to change accross devices that will be pulling down
 the repository. Here are the contents of mine:
 
